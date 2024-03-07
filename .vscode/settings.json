@@ -1,0 +1,8 @@
+{
+    "gitlens.views.branches.files.compact": true,
+    "gitlens.views.commitDetails.files.compact": true,
+    "gitlens.views.worktrees.files.compact": true,
+    "gitlens.views.fileHistory.files.compact": true,
+    "gitlens.views.tags.files.compact": true,
+    "explorer.compactFolders": false
+}
