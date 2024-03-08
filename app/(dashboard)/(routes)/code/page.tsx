@@ -22,6 +22,7 @@ import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-modal";
 
+
 const CodePage = () => {
   const proModal = useProModal();
   const router = useRouter();
