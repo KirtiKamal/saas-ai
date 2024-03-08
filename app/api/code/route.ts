@@ -5,6 +5,8 @@ import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 
 import { OpenAI } from "openai"
+import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
+
 
 
 
@@ -14,10 +16,14 @@ const openai = new OpenAI({
 
 
 
-const instructionMessage: ChatCompletionRequestMessage = {
+const instructionMessage: ChatCompletionMessageParam = {
+
   role: "system",
   content: "You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations."
 };
+
+
+
 
 export async function POST(
   req: Request

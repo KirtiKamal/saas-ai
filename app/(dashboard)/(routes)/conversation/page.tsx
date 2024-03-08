@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionRequestMessage } from "openai";
+// import { ChatCompletionRequestMessage } from "openai";
 import { Empty } from "@/components/empty";
 import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
@@ -21,11 +21,13 @@ import { UserAvatar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { useProModal } from "@/hooks/use-pro-modal";
 
+import { ChatCompletionMessageParam } from "openai/resources/chat/completions";
+
 
 const ConversationPage = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [messages, setMessages] = useState<ChatCompletionMessageParam[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,7 +40,7 @@ const ConversationPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
+      const userMessage: ChatCompletionMessageParam = {
         role: "user",
         content: values.prompt,
       };
@@ -115,9 +117,9 @@ const ConversationPage = () => {
             </div>
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
+          {messages?.length ? messages.map((message, index) => (
               <div
-                key={message.content}
+                key={index}
                 className={cn(
                   "p-8 w-full items-start gap-x-8 rounded-lg",
                   message.role === "user"
@@ -126,9 +128,9 @@ const ConversationPage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
+                <p className="text-sm">{message.content as string}</p>
               </div>
-            ))}
+            )): null}
           </div>
         </div>
       </div>
